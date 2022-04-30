@@ -1,5 +1,5 @@
 # verifyBot
-A Discord Bot that verify an asset in a perticular Algorand address and assign a role
+A Discord Bot that verify an asset in a particular Algorand address and assign a role
 Project setup
 
 ### Project setup
