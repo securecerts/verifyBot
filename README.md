@@ -6,7 +6,7 @@ Project setup
 ```
 npm init
 ```
-## Project setup
+## Project Variables
 ```
 Update .env file with purestake API `API`  and DISCORD API `DISCORD`
 ```
