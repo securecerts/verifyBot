@@ -18,6 +18,7 @@ Follow Youtube videos to create a bot in your server settings.
 
 https://www.youtube.com/watch?v=7rU_KyudGBY
 ```
+```
 Add your role id from discord server after switching on developer mode in discord.
 message.member.roles.add('');
 
