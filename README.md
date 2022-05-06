@@ -2,16 +2,21 @@
 A Discord Bot that verify an asset in a particular Algorand address and assign a role.
 
 
-### Project setup
+## Project setup
 ```
 npm init
 ```
-## Project Variables
+### Project Variables
 ```
 Update .env file with purestake API `API`  and DISCORD API `DISCORD`
 ```
 ```
 Update let account = [] with creator addresses
+```
+```
+Create an ASA from my algo wallet. Add the asset id here.
+
+let optinAsset = ' '
 ```
 ```
 Follow Youtube videos to create a bot in your server settings.
@@ -24,7 +29,7 @@ message.member.roles.add('');
 
 ```
 
-# Project start
+#### Project start
 ```
 npm start
 ```
