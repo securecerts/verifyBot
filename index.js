@@ -37,7 +37,11 @@ let optinAsset = '726327745'
 // Parameters to connect to Algorand blockchain via indexer
 
 async function getInfo(collectorAccount) {
-    let optinCheck = false;
+    assetidList = [];
+    holderAssets = [];
+    optinCheck = false;
+    holderNfts = [];
+    
      //The creator accout/accounts
      let account = [ `PTPBICPBDFFJRHWFEQKV33NDRKMWOY7FA24CJIQFWBNP6V4E2TDQVDF37Q`, `AD5J43O3N6UPEUFYOZHT6WBUXDOK66MMGL3JHQV77Y2EAEZJVLRCINWYBI`, `72BIB7C53AU3EFUJ5SFNGANWHVMZCGH2RDDBLXYS3Q3KH6NIB5MCLMWNTI`];
 
