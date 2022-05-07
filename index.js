@@ -43,18 +43,35 @@ async function getInfo(collectorAccount) {
     holderNfts = [];
     
      //The creator accout/accounts
-     let account = [ `PTPBICPBDFFJRHWFEQKV33NDRKMWOY7FA24CJIQFWBNP6V4E2TDQVDF37Q`, `AD5J43O3N6UPEUFYOZHT6WBUXDOK66MMGL3JHQV77Y2EAEZJVLRCINWYBI`, `72BIB7C53AU3EFUJ5SFNGANWHVMZCGH2RDDBLXYS3Q3KH6NIB5MCLMWNTI`];
-
-    //Getting list of asset ids from creator account
+     let account = [ `72BIB7C53AU3EFUJ5SFNGANWHVMZCGH2RDDBLXYS3Q3KH6NIB5MCLMWNTI`,`PTPBICPBDFFJRHWFEQKV33NDRKMWOY7FA24CJIQFWBNP6V4E2TDQVDF37Q`, `AD5J43O3N6UPEUFYOZHT6WBUXDOK66MMGL3JHQV77Y2EAEZJVLRCINWYBI`];
+    
+     //Getting list of asset ids from creator account
     const creatorAssetids = async function(algoIndexer, account) {
         for (let i = 0; i < account.length; i++) {
-            let accountInfo = await algoIndexer.lookupAccountCreatedAssets(account[i]).do();
-            for (let idx = 0; idx < accountInfo['assets'].length; idx++) {
-                let scrutinizedAsset = accountInfo['assets'][idx];
-                let assetId = scrutinizedAsset['index'];
-                assetidList.push(assetId)
-            }
-        }  
+                let nextToken = '';
+                let accountInfo;
+            //A do while loop to get full list of asset ids 
+            do{
+                if(nextToken == '') {
+                    accountInfo = await algoIndexer.lookupAccountCreatedAssets(account[i]).do();
+                    nextToken = accountInfo['next-token']
+                    addAssets(accountInfo)
+                } else{
+                    accountInfo = await algoIndexer.lookupAccountCreatedAssets(account[i]).nextToken(nextToken).do();
+                    nextToken = accountInfo['next-token']
+                    addAssets(accountInfo)
+                }
+            } while (accountInfo['assets'].length > 0)
+
+            //Function for adding asset ids to the array.
+            function addAssets(accountInfo){
+                for (let idx = 0; idx < accountInfo['assets'].length; idx++) {
+                    let scrutinizedAsset = accountInfo['assets'][idx];
+                    let assetId = scrutinizedAsset['index'];
+                    assetidList.push(assetId)
+                }
+            }            
+        } 
     } 
 
     //checking the assets available with the collector
@@ -69,8 +86,7 @@ async function getInfo(collectorAccount) {
             if(scrutinizedAsset['amount'] > 0){
                 let assetId = scrutinizedAsset['asset-id'];
                 holderAssets.push(assetId)
-            }
-            
+            }            
         }
     }
 
